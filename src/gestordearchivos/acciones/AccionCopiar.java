@@ -15,7 +15,10 @@ public class AccionCopiar extends Accion {
             Archivo a = gestor.buscarArchivoPorNombre(nombreArchivo).orElse(null);
             if (a == null) { setEstado(EstadoAccion.ERROR); return false; }
 
-            boolean ok = gestor.crearArchivo(nombreArchivo + "_copy", a.getPath(), a.getTamanio(), a.getTipo());
+            String[] nombreSeparado = nombreArchivo.split("\\.");
+            String nuevoNombre = nombreSeparado[0] + "_copy" + "." + nombreSeparado[1];
+
+            boolean ok = gestor.crearArchivo(nuevoNombre, a.getPath(), a.getTamanio(), a.getTipo());
             setEstado(ok ? EstadoAccion.FINALIZADA : EstadoAccion.ERROR);
 
             return ok;

@@ -24,6 +24,8 @@ public abstract class Archivo {
     public long getTamanio() { return tamanio; }
     public EstadoArchivo getEstado() { return estado; }
 
+    public abstract String getTipo(); // "Imagen", "Documento", ...
+
     //Setters
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setPath(String path) { this.path = path; }
@@ -35,5 +37,4 @@ public abstract class Archivo {
                 nombre, path, tamanio, fechaCreacion, estado);
     }
 
-    public abstract String getTipo(); // "Imagen", "Documento", ...
 }

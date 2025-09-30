@@ -5,6 +5,7 @@ import gestordearchivos.factory.*;
 import gestordearchivos.model.*;
 import gestordearchivos.repositorio.RepositorioArchivos;
 import gestordearchivos.service.GestorAcciones;
+import gestordearchivos.service.ServicioBusqueda;
 import gestordearchivos.so.SistemaOperativo;
 
 
@@ -14,10 +15,11 @@ public class EntryPoint {
         
          // init repositorio y SO con 1MB de capacidad
         RepositorioArchivos repo = new RepositorioArchivos();
-        SistemaOperativo so = new SistemaOperativo(1_000_000);
+        ServicioBusqueda servicioBusqueda = new ServicioBusqueda(repo);
+        SistemaOperativo so = new SistemaOperativo(1_000_000, repo);
 
-        // inicializar singleton
-        GestorArchivos.init(so);
+        // inicializar singleton -> le agregamos el SO y El servicio de Busqueda correspondiente
+        GestorArchivos.init(so, servicioBusqueda);
         GestorArchivos gestor = GestorArchivos.getInstancia();
 
         // crear archivos
@@ -63,7 +65,7 @@ public class EntryPoint {
         // búsquedas
         System.out.println("BUSQUEDAS");
         System.out.println("\nBuscar por tipo Imagen:");
-        gestor.getServicioBusqueda().buscarPorTipo("Imagen").forEach(a -> System.out.println(" * " + a.obtenerInfo()));
+        gestor.buscarArchivosPorTipo("IMAGEN").forEach(a -> System.out.println(" * " + a.obtenerInfo()));
         System.out.println("==========================================================");
 
         System.out.println("\nHistorial de eliminados:");

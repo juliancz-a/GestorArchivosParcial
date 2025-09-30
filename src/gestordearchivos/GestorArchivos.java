@@ -18,15 +18,15 @@ public class GestorArchivos {
     private final ServicioBusqueda servicioBusqueda;
     private final GestorHistorial gestorHistorial;
 
-    private GestorArchivos(SistemaOperativo so) {
+    private GestorArchivos(SistemaOperativo so, ServicioBusqueda servicioBusqueda) {
         this.so = so;
-        this.servicioBusqueda = new ServicioBusqueda(so);
+        this.servicioBusqueda = servicioBusqueda;
         this.gestorHistorial = new GestorHistorial();
     }
 
-    public static void init(SistemaOperativo so) {
+    public static void init(SistemaOperativo so, ServicioBusqueda servicioBusqueda) {
         if (instancia == null) {
-            instancia = new GestorArchivos(so);
+            instancia = new GestorArchivos(so, servicioBusqueda);
         }
     }
 
@@ -52,15 +52,19 @@ public class GestorArchivos {
         return true;
     }
 
-    public boolean renombrarArchivo(String viejoPath, String nuevoPath) {
-        Optional<Archivo> opt = servicioBusqueda.buscarPorNombre(viejoPath).stream().findFirst();
+    public boolean renombrarArchivo(String nombreActual, String nuevoNombre) {
+        Optional<Archivo> opt = servicioBusqueda.buscarPorNombre(nombreActual).stream().findFirst();
         if (opt.isEmpty()) {
             return false;
         }
         Archivo a = opt.get();
 
-        so.renombrarEstructuraArchivo(a, nuevoPath);
+        so.renombrarEstructuraArchivo(a, nuevoNombre);
         return true;
+    }
+
+    public List<Archivo> listarArchivos() {
+        return so.getArchivos();
     }
 
     public List<Archivo> buscarArchivosPorNombre(String nombre) {
@@ -80,12 +84,6 @@ public class GestorArchivos {
     public List<Archivo> buscarArchivosPorFecha(LocalDate fecha) {
         return servicioBusqueda.buscarPorFecha(fecha);
     }
-
-    public List<Archivo> listarArchivos() { 
-        return so.getArchivos();
-    }
-
-  
 
     public ServicioBusqueda getServicioBusqueda() { return servicioBusqueda; }
     public GestorHistorial getHistorial() { return gestorHistorial; }

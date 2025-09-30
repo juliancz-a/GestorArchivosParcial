@@ -10,26 +10,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ServicioBusqueda {
-    private final SistemaOperativo so;
 
-    public ServicioBusqueda(SistemaOperativo so) {
-        this.so = so;
+    private final RepositorioArchivos repositorio;
+
+    public ServicioBusqueda(RepositorioArchivos repositorio) {
+        this.repositorio = repositorio;
     }
 
     public List<Archivo> buscarPorTipo(String tipo) {
-        return so.getArchivos().parallelStream()
+        return repositorio.getArchivos().stream()
                 .filter(a -> a.getTipo().equalsIgnoreCase(tipo))
                 .collect(Collectors.toList());
     }
 
     public List<Archivo> buscarPorNombre(String nombre) {
-        return so.getArchivos().parallelStream()
+        return repositorio.getArchivos().stream()
                 .filter(a -> a.getNombre().contains(nombre))
                 .collect(Collectors.toList());
     }
 
     public List<Archivo> buscarPorFecha(LocalDate fecha) {
-        return so.getArchivos().parallelStream()
+        return repositorio.getArchivos().stream()
                 .filter(a -> a.getFechaCreacion().toLocalDate().equals(fecha))
                 .collect(Collectors.toList());
     }

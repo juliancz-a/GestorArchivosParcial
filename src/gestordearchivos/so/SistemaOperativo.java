@@ -11,8 +11,8 @@ public class SistemaOperativo {
     private final long CAPACIDAD_TOTAL; // bytes
     private long capacidadUsada = 0;
 
-    public SistemaOperativo(long capacidadTotal) {
-        this.repo = new RepositorioArchivos();
+    public SistemaOperativo(long capacidadTotal, RepositorioArchivos repo) {
+        this.repo = repo;
         this.CAPACIDAD_TOTAL = capacidadTotal;
     }
 
@@ -51,9 +51,9 @@ public class SistemaOperativo {
 
     }
 
-    public void renombrarEstructuraArchivo(Archivo a, String pathNuevo) {
-        System.out.println("[SO] Se renombró el archivo. Nuevo Path: " + pathNuevo);
-        repo.modificar(a, pathNuevo, -1);
+    public void renombrarEstructuraArchivo(Archivo a, String nuevoNombre) {
+        System.out.println("[SO] Se renombró el archivo. Nuevo Path: " + nuevoNombre);
+        repo.modificar(a, nuevoNombre, -1);
     }
 
     public List<Archivo> getArchivos() {

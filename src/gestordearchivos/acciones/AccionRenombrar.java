@@ -1,11 +1,11 @@
 package gestordearchivos.acciones;
 
 public class AccionRenombrar extends Accion {
-    private final String origen;
+    private final String viejoNombre;
     private final String nuevoNombre;
 
-    public AccionRenombrar(String origen, String nuevoNombre) {
-        this.origen = origen;
+    public AccionRenombrar(String viejoNombre, String nuevoNombre) {
+        this.viejoNombre = viejoNombre;
         this.nuevoNombre = nuevoNombre;
     }
 
@@ -13,7 +13,7 @@ public class AccionRenombrar extends Accion {
     public boolean ejecutar() {
         setEstado(EstadoAccion.EN_PROCESO);
         try {
-            boolean ok = gestor.renombrarArchivo(origen, nuevoNombre);
+            boolean ok = gestor.renombrarArchivo(viejoNombre, nuevoNombre);
             setEstado(ok ? EstadoAccion.FINALIZADA : EstadoAccion.ERROR);
             return ok;
         } catch (Exception ex) {
@@ -24,6 +24,6 @@ public class AccionRenombrar extends Accion {
 
     @Override
     public String obtenerDescripcion() {
-        return "Renombrar " + origen + " -> " + nuevoNombre;
+        return "Renombrar " + viejoNombre + " -> " + nuevoNombre;
     }
 }
