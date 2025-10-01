@@ -4,7 +4,7 @@ package gestordearchivos.acciones;
 import gestordearchivos.GestorArchivos;
 
 public abstract class Accion {
-    private EstadoAccion estado = EstadoAccion.EN_ESPERA;
+    private EstadoAccion estado = EstadoAccion.EN_ESPERA; // Estado Inicial
     protected final GestorArchivos gestor = GestorArchivos.getInstancia();
     
     public EstadoAccion getEstado() { return estado; }

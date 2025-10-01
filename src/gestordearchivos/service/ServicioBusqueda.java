@@ -11,26 +11,26 @@ import java.util.stream.Collectors;
 
 public class ServicioBusqueda {
 
-    private final RepositorioArchivos repositorio;
+    private final RepositorioArchivos repo;
 
-    public ServicioBusqueda(RepositorioArchivos repositorio) {
-        this.repositorio = repositorio;
+    public ServicioBusqueda(RepositorioArchivos repo) {
+        this.repo = repo;
     }
 
     public List<Archivo> buscarPorTipo(String tipo) {
-        return repositorio.getArchivos().stream()
+        return repo.getArchivos().stream()
                 .filter(a -> a.getTipo().equalsIgnoreCase(tipo))
                 .collect(Collectors.toList());
     }
 
     public List<Archivo> buscarPorNombre(String nombre) {
-        return repositorio.getArchivos().stream()
+        return repo.getArchivos().stream()
                 .filter(a -> a.getNombre().contains(nombre))
                 .collect(Collectors.toList());
     }
 
     public List<Archivo> buscarPorFecha(LocalDate fecha) {
-        return repositorio.getArchivos().stream()
+        return repo.getArchivos().stream()
                 .filter(a -> a.getFechaCreacion().toLocalDate().equals(fecha))
                 .collect(Collectors.toList());
     }

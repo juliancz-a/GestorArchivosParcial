@@ -44,17 +44,18 @@ public class EntryPoint {
         System.out.println("==========================================================");
         System.out.println("ACCIONES DEL USUARIO");
         Accion act1 = gestorAcciones.crearAccion("eliminar", "doc1.pdf");
-        gestorAcciones.ejecutarAccion(act1);
+        act1.ejecutar();
+
         System.out.println("Acción: " + act1.obtenerDescripcion() + " => " + act1.getEstado());
 
         // copiar foto1 -> foto1_copy
         Accion act2 = gestorAcciones.crearAccion("copiar", "foto1.png");
-        gestorAcciones.ejecutarAccion(act2);
+        act2.ejecutar();
         System.out.println("Acción: " + act2.obtenerDescripcion() + " => " + act2.getEstado());
 
         // renombrar video1
         Accion act3 = gestorAcciones.crearAccion("renombrar", "video1.mp4", "video_grande.mp4");
-        gestorAcciones.ejecutarAccion(act3);
+        act3.ejecutar();
         System.out.println("Acción: " + act3.obtenerDescripcion() + " => " + act3.getEstado());
 
         System.out.println("==========================================================");

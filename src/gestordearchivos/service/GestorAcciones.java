@@ -20,8 +20,4 @@ public class GestorAcciones {
         return accion;
     }
 
-    public boolean ejecutarAccion(Accion accion) {        
-        boolean resultado = accion.ejecutar();        
-        return resultado;
-    }
 }
